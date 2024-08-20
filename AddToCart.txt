@@ -1,0 +1,43 @@
+  describe('Sauce Demo E2E Test', () => {
+   it('should successfully complete an order', () => {
+    // Step 1: Navigate to the application
+    cy.visit('https://www.saucedemo.com/');
+    
+    // Step 2: Input username and password
+    cy.get('#user-name').type('standard_user');
+    cy.get('#password').type('secret_sauce');
+    
+    // Step 3: Login and verify home screen is visible
+    cy.get('#login-button').click();
+    cy.url().should('include', '/inventory.html');
+    
+    // Step 4: Click on the [burger] menu button
+    cy.get('#react-burger-menu-btn').click();
+    
+    // Step 5: Click on the 'Reset App State' option
+    cy.get('#reset_sidebar_link').click();
+    
+    // Step 6: Click on 'Add to Cart' button for any selected product
+    cy.get('.inventory_item').first().find('button').click();
+    
+    // Step 7: Click on the Cart button
+    cy.get('.shopping_cart_link').click();
+    
+    // Step 8: Click on the Checkout Button
+    cy.get('#checkout').click();
+    
+    // Step 9: Input first name, last name, and zip code
+    cy.get('#first-name').type('bob');
+    cy.get('#last-name').type('steve');
+    cy.get('#postal-code').type('12345');
+    
+    // Step 10: Click on the Continue Button
+    cy.get('#continue').click();
+    
+    // Step 11: Click on the Finish Button
+    cy.get('#finish').click();
+    
+    // Verify that the order completion page is displayed
+    cy.contains('THANK YOU FOR YOUR ORDER').should('be.visible');
+  });
+});
