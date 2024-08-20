@@ -16,3 +16,13 @@
         cy.get('.inventory_item').first().within(() => {
         cy.get('button').contains('Add to cart').click();
         });
+
+        // Step 5: Click on the Cart button
+        cy.get('.shopping_cart_link').click();
+
+        // Optionally, verify that the product is added to the cart
+        cy.url().should('include', '/cart.html');
+        cy.get('.cart_item').should('have.length', 1);
+    });
+
+});
